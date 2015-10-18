@@ -1,0 +1,5 @@
+proj/.vs/
+proj/Win32/
+proj/Win64/
+*.opensdf
+*.sdf
