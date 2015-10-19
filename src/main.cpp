@@ -20,9 +20,4 @@ void mrb_init_mrbgems(mrb_state *mrb)
 {
 }
 
-//	mrb_init_core(init.c)から呼ばれる
-void mrb_init_mrblib(mrb_state *mrb)
-{
-}
-
 }	//	extern "C"
