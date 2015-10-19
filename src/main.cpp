@@ -12,12 +12,3 @@ int main()
 	mrb_close(mrb);
 	return 0;
 }
-
-extern "C"{
-
-//	mrb_open_allocf(state.c)から呼ばれる
-void mrb_init_mrbgems(mrb_state *mrb)
-{
-}
-
-}	//	extern "C"
