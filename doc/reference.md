@@ -12,6 +12,11 @@ mrb_stateを生成して返す。
 MRB_API void mrb_close(mrb_state*);  
 mrb_stateを破棄する。  
 
+mruby/value.h  
+
+struct mrb_value;  
+Cとの値の受け渡しに使う構造体。  
+
 mruby/compile.h  
 
 MRB_API mrb_value mrb_load_file(mrb_state*,FILE*);  
