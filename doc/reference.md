@@ -27,10 +27,23 @@ nilの場合、MRB_TT_FALSEが返ってくるので、
 きちんとnilかどうか判定したい時は、mrb_nil_pで判定する。  
 
 bool mrb_nil_p(mrb_value o);  
+bool mrb_bool(mrb_value o);  
 bool mrb_fixnum_p(mrb_value o);  
 bool mrb_array_p(mrb_value o);  
 bool mrb_string_p(mrb_value o);など  
-mrb_valueのタイプを判定する。  
+mrb_valueのタイプや真偽を判定する。  
+
+mrb_int mrb_fixnum(mrb_value o);  
+mrb_float mrb_float(mrb_value o);など  
+mrb_valueの値を取得する。  
+
+mruby/string.h  
+
+const char* RSTRING_PTR(mrb_value s);  
+mrb_valueから文字列を取得。  
+
+mrb_int RSTRING_LEN(mrb_value s);  
+mrb_valueから文字列の長さを取得。  
 
 mruby/compile.h  
 
