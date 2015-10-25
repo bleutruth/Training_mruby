@@ -17,6 +17,13 @@ mruby/value.h
 struct mrb_value;  
 Cとの値の受け渡しに使う構造体。  
 
+enum mrb_vtype;  
+mrb_valueのタイプ。  
+MRB_TT_FIXNUM, MRB_TT_STRING, MRB_TT_TRUE, …  
+
+enum mrb_vtype mrb_type(mrb_value o);  
+mrb_valueのタイプを取得。  
+
 mruby/compile.h  
 
 MRB_API mrb_value mrb_load_file(mrb_state*,FILE*);  
