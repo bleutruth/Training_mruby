@@ -23,6 +23,14 @@ MRB_TT_FIXNUM, MRB_TT_STRING, MRB_TT_TRUE, …
 
 enum mrb_vtype mrb_type(mrb_value o);  
 mrb_valueのタイプを取得。  
+nilの場合、MRB_TT_FALSEが返ってくるので、
+きちんとnilかどうか判定したい時は、mrb_nil_pで判定する。  
+
+bool mrb_nil_p(mrb_value o);  
+bool mrb_fixnum_p(mrb_value o);  
+bool mrb_array_p(mrb_value o);  
+bool mrb_string_p(mrb_value o);など  
+mrb_valueのタイプを判定する。  
 
 mruby/compile.h  
 
