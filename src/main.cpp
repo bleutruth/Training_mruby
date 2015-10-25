@@ -10,7 +10,9 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	auto const mrb = mrb_open();
-	mrb_load_string(mrb, "puts 'HelloWorld!'");
+	auto const v = mrb_load_string(mrb, "nil");
+	auto const type = mrb_type(v);
+	auto const is_nil = mrb_nil_p(v);
 	mrb_close(mrb);
 	return 0;
 }
