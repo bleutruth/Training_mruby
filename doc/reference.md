@@ -9,10 +9,55 @@ mrubyの取り扱い単位となる構造体。
 MRB_API mrb_state* mrb_open(void);  
 mrb_stateを生成して返す。  
 
-MRB_API void mrb_close(mrb_state*);  
+MRB_API void mrb_close(mrb_state* mrb);  
 mrb_stateを破棄する。  
 
-MRB_API mrb_value mrb_str_new_cstr(mrb_state*, const char*);  
+typedef void* (*mrb_allocf) (mrb_state *mrb, void* ptr, size_t s, void *ud);  
+ユーザー定義のアロケータの型定義。  
+アロケータの動作としては、reallocと同じように、  
+sが0の時はメモリを解放し、ptrがNULLの時は新たにメモリを確保する。  
+
+MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);
+mrb_stateを生成して返す。  
+ユーザー定義アロケータとユーザーデータの指定版。  
+
+MRB_API struct RClass *mrb_define_class(mrb_state *mrb, const char *name, struct RClass *super);  
+クラスを定義する。  
+
+MRB_API struct RClass *mrb_define_module(mrb_state* mrb, const char* name);  
+モジュールを定義する。  
+
+MRB_API mrb_value mrb_singleton_class(mrb_state* mrb, mrb_value v);  
+特異クラスを返す。  
+
+MRB_API void mrb_include_module(mrb_state* mrb, struct RClass* c, struct RClass* m);  
+cクラスにmモジュールをincludeする。  
+
+MRB_API void mrb_prepend_module(mrb_state* mrb, struct RClass* c, struct RClass* m);  
+cクラスにmモジュールをprependする。  
+
+MRB_API void mrb_define_method(mrb_state *mrb, struct RClass *cla, const char *name, mrb_func_t func, mrb_aspec aspec);  
+メソッドを定義する。  
+
+MRB_API void mrb_define_class_method(mrb_state *mrb, struct RClass *cla, const char *name, mrb_func_t func, mrb_aspec aspec);  
+クラスメソッドを定義する。  
+
+MRB_API void mrb_define_singleton_method(mrb_state* mrb, struct RObject* o, const char* name, mrb_func_t func, mrb_aspec aspec);  
+特異メソッドを定義する。  
+
+MRB_API void mrb_define_module_function(mrb_state* mrb, struct RClass* cla, const char* name, mrb_func_t func, mrb_aspec aspec);  
+モジュールメソッドを定義する。  
+
+MRB_API void mrb_define_const(mrb_state* mrb, struct RClass* cla, const char *name, mrb_value v);  
+定数を定義する。  
+
+MRB_API void mrb_undef_method(mrb_state* mrb, struct RClass* cla, const char* name);  
+メソッドの定義を消す。  
+
+MRB_API void mrb_undef_class_method(mrb_state* mrb, struct RClass* cla, const char* name);  
+クラスメソッドの定義を消す。  
+
+MRB_API mrb_value mrb_str_new_cstr(mrb_state* mrb, const char* p);  
 文字列のmrb_valueを生成する。  
 文字列のコピーを作る。  
 
