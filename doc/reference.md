@@ -12,6 +12,15 @@ mrb_stateを生成して返す。
 MRB_API void mrb_close(mrb_state*);  
 mrb_stateを破棄する。  
 
+MRB_API mrb_value mrb_str_new_cstr(mrb_state*, const char*);  
+文字列のmrb_valueを生成する。  
+文字列のコピーを作る。  
+
+MRB_API mrb_value mrb_str_new_lit(mrb_state *mrb, const char *lit);  
+MRB_API mrb_value mrb_str_new_static(mrb_state *mrb, const char *p, size_t len);  
+文字列のmrb_valueを生成する。  
+文字列のコピーは作らない。  
+
 mruby/value.h  
 
 struct mrb_value;  
