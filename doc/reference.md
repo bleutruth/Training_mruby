@@ -57,6 +57,37 @@ MRB_API void mrb_undef_method(mrb_state* mrb, struct RClass* cla, const char* na
 MRB_API void mrb_undef_class_method(mrb_state* mrb, struct RClass* cla, const char* name);  
 クラスメソッドの定義を消す。  
 
+MRB_API mrb_value mrb_obj_new(mrb_state *mrb, struct RClass *c, mrb_int argc, const mrb_value *argv);  
+オブジェクトを生成する。  
+argc, argvをinitializeの引数にする。  
+
+MRB_API mrb_value mrb_instance_new(mrb_state *mrb, mrb_value cv);  
+オブジェクトを生成する。  
+initializeの引数はmrb_get_argsで取り出す。  
+
+MRB_API struct RClass * mrb_class_get(mrb_state *mrb, const char *name);  
+名前からクラスを取得。  
+
+MRB_API struct RClass * mrb_class_get_under(mrb_state *mrb, struct RClass *outer, const char *name);  
+派生クラスからクラスを取得。  
+
+MRB_API struct RClass * mrb_module_get(mrb_state *mrb, const char *name);  
+名前からモジュールを取得。  
+
+MRB_API struct RClass * mrb_module_get_under(mrb_state *mrb, struct RClass *outer, const char *name);  
+派生クラスからモジュールを取得。  
+
+MRB_API mrb_value mrb_notimplement_m(mrb_state* mrb, mrb_value self);  
+派生クラスで実装を強制するメソッド。  
+オーバーライドされずに呼ばれた場合、NotImplementedErrorを投げる。  
+
+MRB_API mrb_value mrb_obj_dup(mrb_state *mrb, mrb_value obj);  
+オブジェクトのコピーを生成する。  
+
+MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);  
+クラスがシンボルを持つか調べる。  
+見つからない場合は親クラスを辿る。  
+
 MRB_API mrb_value mrb_str_new_cstr(mrb_state* mrb, const char* p);  
 文字列のmrb_valueを生成する。  
 文字列のコピーを作る。  
