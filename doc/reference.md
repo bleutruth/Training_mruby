@@ -88,14 +88,89 @@ MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mi
 クラスがシンボルを持つか調べる。  
 見つからない場合は親クラスを辿る。  
 
+mrb_aspec MRB_ARGS_REQ(n);  
+必要な引数の数を示す。  
+
+mrb_aspec MRB_ARGS_OPT(n);  
+オプションな引数の数を示す。  
+
+mrb_aspec MRB_ARGS_ARG(n1, n2);  
+必要な引数とオプションそれぞれの数を示す。  
+
+mrb_aspec MRB_ARGS_REST();  
+レスト引数をとることを示す。  
+
+mrb_aspec MRB_ARGS_POST(n);  
+post引数の数を示す。  
+
+mrb_aspec MRB_ARGS_KEY(n1,n2);  
+キーワード引数。  
+
+mrb_aspec MRB_ARGS_BLOCK();  
+ブロック引数をとることを示す。  
+
+mrb_aspec MRB_ARGS_ANY();  
+任意の引数をとることを示す。  
+
+mrb_aspec MRB_ARGS_NONE();  
+引数なし。  
+
+typedef const char *mrb_args_format;  
+mrb_get_argsで受け取る引数を示すための型定義。  
+
+MRB_API mrb_int mrb_get_args(mrb_state *mrb, mrb_args_format format, ...);  
+引数を受け取る。  
+
+mrb_sym mrb_get_mid(mrb_state *mrb);  
+実行中のメソッドのシンボルを取得。  
+
+int mrb_get_argc(mrb_state *mrb);  
+実行中のメソッドの引数の数を取得。  
+
+size_t mrb_strlen_lit(lit);  
+文字列リテラルの長さを返す。  
+
+MRB_API mrb_value mrb_funcall(mrb_state* mrb, mrb_value self, const char* name, mrb_int argc,...);  
+メソッドを呼び出す。  
+引数は可変個の引数で渡す。  
+
+MRB_API mrb_value mrb_funcall_argv(mrb_state* mrb, mrb_value self, mrb_sym mid, mrb_int argc, const mrb_value* argv);  
+メソッドを呼び出す。  
+引数は配列で渡す。  
+
+MRB_API mrb_value mrb_funcall_with_block(mrb_state* mrb, mrb_value self, mrb_sym mid, mrb_int argc, const mrb_value* argv, mrb_value blk);  
+メソッドを呼び出す。ブロック付き。  
+
+MRB_API mrb_sym mrb_intern_cstr(mrb_state* mrb, const char* name);  
+MRB_API mrb_sym mrb_intern(mrb_state* mrb, const char* name, size_t len);  
+MRB_API mrb_sym mrb_intern_str(mrb_state* mrb, mrb_value str);
+文字列からシンボルを登録して返す。  
+キーとして文字列のコピーをとる。  
+
+MRB_API mrb_sym mrb_intern_lit(mrb_state* mrb, const char* lit);  
+MRB_API mrb_sym mrb_intern_static(mrb_state* mrb,const char* name, size_t len);  
+文字列からシンボルを登録して返す。  
+キーとして文字列のコピーをとらない。  
+
+MRB_API mrb_value mrb_check_intern_cstr(mrb_state* mrb, const char* name);  
+MRB_API mrb_value mrb_check_intern(mrb_state* mrb, const char* name, size_t len);  
+MRB_API mrb_value mrb_check_intern_str(mrb_state* mrb, mrb_value str);  
+文字列からシンボルを検索して返す。  
+存在しない場合はnilを返す。  
+
+MRB_API const char *mrb_sym2name(mrb_state* mrb, mrb_sym sym);  
+MRB_API const char *mrb_sym2name_len(mrb_state* mrb, mrb_sym sym, mrb_int* lenp);  
+MRB_API mrb_value mrb_sym2str(mrb_state* mrb, mrb_sym sym);
+シンボルの値から文字列を返す。  
+
 MRB_API mrb_value mrb_str_new_cstr(mrb_state* mrb, const char* p);  
 文字列のmrb_valueを生成する。  
-文字列のコピーを作る。  
+文字列のコピーをとる。  
 
 MRB_API mrb_value mrb_str_new_lit(mrb_state *mrb, const char *lit);  
 MRB_API mrb_value mrb_str_new_static(mrb_state *mrb, const char *p, size_t len);  
 文字列のmrb_valueを生成する。  
-文字列のコピーは作らない。  
+文字列のコピーをとらない。  
 
 mruby/value.h  
 
