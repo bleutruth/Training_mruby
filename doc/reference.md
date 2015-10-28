@@ -13,9 +13,13 @@ MRB_API void mrb_close(mrb_state* mrb);
 mrb_stateを破棄する。  
 
 typedef void* (*mrb_allocf) (mrb_state *mrb, void* ptr, size_t s, void *ud);  
-ユーザー定義のアロケータの型定義。  
+ユーザー定義アロケータの型定義。  
 アロケータの動作としては、reallocと同じように、  
 sが0の時はメモリを解放し、ptrがNULLの時は新たにメモリを確保する。  
+
+MRB_API void* mrb_default_allocf(mrb_state* mrb, void* ptr, size_t s, void* ud);  
+デフォルトのアロケータ。  
+mrb_open_allocfでユーザー定義のものを指定すれば置き換えられる。  
 
 MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);
 mrb_stateを生成して返す。  
@@ -163,7 +167,22 @@ MRB_API const char *mrb_sym2name_len(mrb_state* mrb, mrb_sym sym, mrb_int* lenp)
 MRB_API mrb_value mrb_sym2str(mrb_state* mrb, mrb_sym sym);  
 シンボルの値から文字列を返す。  
 
+MRB_API void *mrb_malloc(mrb_state* mrb, size_t len);  
+MRB_API void *mrb_calloc(mrb_state* mrb, size_t nelem, size_t len);  
+MRB_API void *mrb_realloc(mrb_state* mrb, void* p, size_t len);  
+MRB_API void mrb_free(mrb_state* mrb, void* p);  
+malloc, calloc, realloc, free。  
+
+MRB_API void *mrb_malloc_simple(mrb_state* mrb, size_t len);  
+MRB_API void *mrb_realloc_simple(mrb_state* mrb, void* p, size_t len);  
+malloc, realloc。  
+メモリ確保に失敗しても例外を投げない。  
+
+MRB_API struct RBasic *mrb_obj_alloc(mrb_state* mrb, enum mrb_vtype ttype, struct RClass* cls);  
+オブジェクトを生成。  
+
 MRB_API mrb_value mrb_str_new_cstr(mrb_state* mrb, const char* p);  
+MRB_API mrb_value mrb_str_new(mrb_state *mrb, const char *p, size_t len);  
 文字列のmrb_valueを生成する。  
 文字列のコピーをとる。  
 
@@ -171,6 +190,26 @@ MRB_API mrb_value mrb_str_new_lit(mrb_state *mrb, const char *lit);
 MRB_API mrb_value mrb_str_new_static(mrb_state *mrb, const char *p, size_t len);  
 文字列のmrb_valueを生成する。  
 文字列のコピーをとらない。  
+
+MRB_API mrb_value mrb_run(mrb_state* mrb, struct RProc* proc, mrb_value self);  
+実行する。  
+
+MRB_API void mrb_p(mrb_state* mrb, mrb_value obj);  
+オブジェクトの内容を標準出力に出力する。  
+
+MRB_API mrb_int mrb_obj_id(mrb_value obj);  
+オブジェクトIDを返す。  
+
+MRB_API mrb_sym mrb_obj_to_sym(mrb_state *mrb, mrb_value name);  
+シンボルを返す。  
+
+MRB_API mrb_bool mrb_obj_eq(mrb_state* mrb, mrb_value v1, mrb_value v2);  
+MRB_API mrb_bool mrb_obj_equal(mrb_state* mrb, mrb_value v1, mrb_value v2);  
+オブジェクトが等しいかチェックする。  
+
+MRB_API mrb_bool mrb_equal(mrb_state *mrb, mrb_value obj1, mrb_value obj2);  
+オブジェクトが等しいかチェックする。  
+mrb_obj_eqでチェックしてfalseが返ってきたら、==メソッドを呼んで判定する。  
 
 mruby/value.h  
 
