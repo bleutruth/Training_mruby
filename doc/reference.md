@@ -160,7 +160,7 @@ MRB_API mrb_value mrb_check_intern_str(mrb_state* mrb, mrb_value str);
 
 MRB_API const char *mrb_sym2name(mrb_state* mrb, mrb_sym sym);  
 MRB_API const char *mrb_sym2name_len(mrb_state* mrb, mrb_sym sym, mrb_int* lenp);  
-MRB_API mrb_value mrb_sym2str(mrb_state* mrb, mrb_sym sym);
+MRB_API mrb_value mrb_sym2str(mrb_state* mrb, mrb_sym sym);  
 シンボルの値から文字列を返す。  
 
 MRB_API mrb_value mrb_str_new_cstr(mrb_state* mrb, const char* p);  
