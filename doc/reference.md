@@ -85,8 +85,13 @@ MRB_API mrb_value mrb_notimplement_m(mrb_state* mrb, mrb_value self);
 派生クラスで実装を強制するメソッド。  
 オーバーライドされずに呼ばれた場合、NotImplementedErrorを投げる。  
 
+MRB_API mrb_value mrb_obj_clone(mrb_state *mrb, mrb_value self);  
+オブジェクトのコピーを生成する。  
+Object#clone  
+
 MRB_API mrb_value mrb_obj_dup(mrb_state *mrb, mrb_value obj);  
 オブジェクトのコピーを生成する。  
+Object#dup  
 
 MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);  
 クラスがシンボルを持つか調べる。  
@@ -147,7 +152,7 @@ MRB_API mrb_value mrb_funcall_with_block(mrb_state* mrb, mrb_value self, mrb_sym
 
 MRB_API mrb_sym mrb_intern_cstr(mrb_state* mrb, const char* name);  
 MRB_API mrb_sym mrb_intern(mrb_state* mrb, const char* name, size_t len);  
-MRB_API mrb_sym mrb_intern_str(mrb_state* mrb, mrb_value str);
+MRB_API mrb_sym mrb_intern_str(mrb_state* mrb, mrb_value str);  
 文字列からシンボルを登録して返す。  
 キーとして文字列のコピーをとる。  
 
@@ -194,8 +199,14 @@ MRB_API mrb_value mrb_str_new_static(mrb_state *mrb, const char *p, size_t len);
 MRB_API mrb_value mrb_run(mrb_state* mrb, struct RProc* proc, mrb_value self);  
 実行する。  
 
+MRB_API mrb_value mrb_inspect(mrb_state *mrb, mrb_value obj);  
+MRB_API mrb_value mrb_obj_inspect(mrb_state *mrb, mrb_value self);  
+オブジェクトの内容を文字列で返す。  
+Object#inspect  
+
 MRB_API void mrb_p(mrb_state* mrb, mrb_value obj);  
 オブジェクトの内容を標準出力に出力する。  
+Kernel.#p  
 
 MRB_API mrb_int mrb_obj_id(mrb_value obj);  
 オブジェクトIDを返す。  
@@ -210,6 +221,41 @@ MRB_API mrb_bool mrb_obj_equal(mrb_state* mrb, mrb_value v1, mrb_value v2);
 MRB_API mrb_bool mrb_equal(mrb_state *mrb, mrb_value obj1, mrb_value obj2);  
 オブジェクトが等しいかチェックする。  
 mrb_obj_eqでチェックしてfalseが返ってきたら、==メソッドを呼んで判定する。  
+
+MRB_API mrb_bool mrb_eql(mrb_state *mrb, mrb_value obj1, mrb_value obj2);  
+オブジェクトが等しいかチェックする。  
+mrb_obj_eqでチェックしてfalseが返ってきたら、eql?メソッドを呼んで判定する。  
+
+MRB_API mrb_value mrb_convert_to_integer(mrb_state *mrb, mrb_value val, int base);  
+MRB_API mrb_value mrb_Integer(mrb_state *mrb, mrb_value val);  
+整数に変換。  
+
+MRB_API mrb_value mrb_Float(mrb_state *mrb, mrb_value val);  
+浮動小数点数に変換。  
+
+MRB_API void mrb_garbage_collect(mrb_state* mrb);  
+MRB_API void mrb_full_gc(mrb_state* mrb);  
+GCを動かす。  
+
+MRB_API void mrb_incremental_gc(mrb_state *mrb);  
+インクリメンタルGCを動かす。  
+
+MRB_API mrb_value mrb_convert_type(mrb_state *mrb, mrb_value val, enum mrb_vtype type, const char *tname, const char *method);  
+MRB_API mrb_value mrb_check_convert_type(mrb_state *mrb, mrb_value val, enum mrb_vtype type, const char *tname, const char *method);  
+valをtypeに変換する。  
+
+MRB_API mrb_value mrb_any_to_s(mrb_state *mrb, mrb_value obj);  
+"#<クラス名:アドレス>"の形式で文字列を返す。  
+
+MRB_API const char * mrb_obj_classname(mrb_state *mrb, mrb_value obj);  
+クラス名を返す。  
+
+MRB_API struct RClass* mrb_obj_class(mrb_state *mrb, mrb_value obj);  
+クラスを返す。  
+
+MRB_API mrb_bool mrb_obj_is_kind_of(mrb_state *mrb, mrb_value obj, struct RClass *c);  
+cクラスと継承関係にあるか判定する。  
+親クラスなどもチェックする。  
 
 mruby/value.h  
 
