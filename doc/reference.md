@@ -55,6 +55,9 @@ MRB_API void mrb_define_module_function(mrb_state* mrb, struct RClass* cla, cons
 MRB_API void mrb_define_const(mrb_state* mrb, struct RClass* cla, const char *name, mrb_value v);  
 定数を定義する。  
 
+MRB_API void mrb_define_global_const(mrb_state *mrb, const char *name, mrb_value val);  
+グローバル定数を定義する。  
+
 MRB_API void mrb_undef_method(mrb_state* mrb, struct RClass* cla, const char* name);  
 メソッドの定義を消す。  
 
@@ -93,6 +96,7 @@ MRB_API mrb_value mrb_obj_dup(mrb_state *mrb, mrb_value obj);
 オブジェクトのコピーを生成する。  
 Object#dup  
 
+MRB_API mrb_bool mrb_respond_to(mrb_state *mrb, mrb_value obj, mrb_sym mid);  
 MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);  
 クラスがシンボルを持つか調べる。  
 見つからない場合は親クラスを辿る。  
@@ -196,6 +200,9 @@ MRB_API mrb_value mrb_str_new_static(mrb_state *mrb, const char *p, size_t len);
 文字列のmrb_valueを生成する。  
 文字列のコピーをとらない。  
 
+MRB_API mrb_value mrb_format(mrb_state *mrb, const char *format, ...);  
+format指定の結果を格納した文字列を返す。  
+
 MRB_API mrb_value mrb_run(mrb_state* mrb, struct RProc* proc, mrb_value self);  
 実行する。  
 
@@ -226,9 +233,13 @@ MRB_API mrb_bool mrb_eql(mrb_state *mrb, mrb_value obj1, mrb_value obj2);
 オブジェクトが等しいかチェックする。  
 mrb_obj_eqでチェックしてfalseが返ってきたら、eql?メソッドを呼んで判定する。  
 
-MRB_API mrb_value mrb_convert_to_integer(mrb_state *mrb, mrb_value val, int base);  
+mrb_int mrb_int(mrb, val)  
+整数値に変換。  
+
+MRB_API mrb_value mrb_to_int(mrb_state *mrb, mrb_value val);  
 MRB_API mrb_value mrb_Integer(mrb_state *mrb, mrb_value val);  
-整数に変換。  
+MRB_API mrb_value mrb_convert_to_integer(mrb_state *mrb, mrb_value val, int base);  
+整数オブジェクトに変換。  
 
 MRB_API mrb_value mrb_Float(mrb_state *mrb, mrb_value val);  
 浮動小数点数に変換。  
@@ -247,11 +258,15 @@ valをtypeに変換する。
 MRB_API mrb_value mrb_any_to_s(mrb_state *mrb, mrb_value obj);  
 "#<クラス名:アドレス>"の形式で文字列を返す。  
 
-MRB_API const char * mrb_obj_classname(mrb_state *mrb, mrb_value obj);  
+MRB_API const char* mrb_class_name(mrb_state *mrb, struct RClass* klass);  
+MRB_API const char* mrb_obj_classname(mrb_state *mrb, mrb_value obj);  
 クラス名を返す。  
 
 MRB_API struct RClass* mrb_obj_class(mrb_state *mrb, mrb_value obj);  
 クラスを返す。  
+
+MRB_API mrb_bool mrb_obj_is_instance_of(mrb_state *mrb, mrb_value obj, struct RClass* c);  
+クラスを判定する。  
 
 MRB_API mrb_bool mrb_obj_is_kind_of(mrb_state *mrb, mrb_value obj, struct RClass *c);  
 cクラスと継承関係にあるか判定する。  
@@ -298,6 +313,52 @@ int TOUPPER(int c);
 
 int TOLOWER(int c);  
 小文字に変換。  
+
+MRB_API mrb_value mrb_exc_new(mrb_state *mrb, struct RClass *c, const char *ptr, size_t len);  
+例外クラスを生成。  
+
+MRB_API mrb_noreturn void mrb_exc_raise(mrb_state *mrb, mrb_value exc);  
+MRB_API mrb_noreturn void mrb_raise(mrb_state *mrb, struct RClass *c, const char *msg);  
+MRB_API mrb_noreturn void mrb_raisef(mrb_state *mrb, struct RClass *c, const char *fmt, ...);  
+例外を投げる。  
+
+MRB_API mrb_noreturn void mrb_name_error(mrb_state *mrb, mrb_sym id, const char *fmt, ...);  
+NameErrorの例外を投げる。  
+
+MRB_API void mrb_warn(mrb_state *mrb, const char *fmt, ...);  
+警告を標準エラー出力に出す。  
+
+MRB_API mrb_noreturn void mrb_bug(mrb_state *mrb, const char *fmt, ...);  
+バグ内容を標準エラー出力に出して、プログラムを終了する。  
+
+MRB_API void mrb_print_backtrace(mrb_state *mrb);  
+バックトレースを標準エラー出力に出す。  
+
+MRB_API void mrb_print_error(mrb_state *mrb);  
+バックトレースと例外の内容を標準エラー出力に出す。  
+
+E_RUNTIME_ERROR  
+E_TYPE_ERRORなど  
+例外クラスを示すマクロ。  
+
+MRB_API void mrb_check_type(mrb_state *mrb, mrb_value x, enum mrb_vtype t);  
+オブジェクトのタイプをチェックし、不一致な時は例外を投げる。  
+
+MRB_API void mrb_define_alias(mrb_state *mrb, struct RClass *klass, const char *name1, const char *name2);  
+メソッドに別名を付ける。  
+Module#alias_method  
+
+void mrb_assert(bool p);  
+assert  
+
+void mrb_static_assert(exp, str);  
+static assert  
+
+MRB_API void mrb_show_version(mrb_state *mrb);  
+バージョン情報を標準出力に出す。  
+
+MRB_API void mrb_show_copyright(mrb_state *mrb);  
+コピーライトを標準出力に出す。  
 
 mruby/value.h  
 
