@@ -256,6 +256,48 @@ MRB_API struct RClass* mrb_obj_class(mrb_state *mrb, mrb_value obj);
 MRB_API mrb_bool mrb_obj_is_kind_of(mrb_state *mrb, mrb_value obj, struct RClass *c);  
 cクラスと継承関係にあるか判定する。  
 親クラスなどもチェックする。  
+Object#is_a?  
+Object#kind_of?  
+
+bool ISASCII(int c);  
+ASCIIコードかどうか判定する。  
+
+bool ISPRINT(int c);  
+印刷可能な文字(PrintableCharacters)かどうか判定する。  
+
+bool ISSPACE(int c);  
+スペースかどうか判定する。  
+半角スペース, \t, \n, \v, \f, \r  
+
+bool ISUPPER(int c);  
+大文字かどうか判定する。  
+
+bool ISLOWER(int c);  
+小文字かどうか判定する。  
+
+bool ISALPHA(int c);  
+アルファベットかどうか判定する。  
+
+bool ISDIGIT(int c);  
+数字かどうか判定する。  
+
+bool ISXDIGIT(int c);  
+数字またはA-Fのアルファベット(16進数で使う文字)かどうか判定する。  
+
+bool ISALNUM(int c);  
+数字またはアルファベットかどうか判定する。  
+
+bool ISBLANK(int c);  
+空白(半角スペースまたはタブ)かどうか判定する。  
+
+bool ISCNTRL(int c);  
+制御文字かどうか判定する。  
+
+int TOUPPER(int c);  
+大文字に変換。  
+
+int TOLOWER(int c);  
+小文字に変換。  
 
 mruby/value.h  
 
