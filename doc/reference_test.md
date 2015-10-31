@@ -95,10 +95,11 @@ Object#clone
 オブジェクトのコピーを生成する。  
 Object#dup  
 
-* MRB_API mrb_bool mrb_respond_to(mrb_state *mrb, mrb_value obj, mrb_sym mid);  
-* MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);  
-クラスがシンボルを持つか調べる。  
-見つからない場合は親クラスを辿る。  
+<dl>
+<dt>MRB_API mrb_bool mrb_respond_to(mrb_state *mrb, mrb_value obj, mrb_sym mid);</dt>
+<dt>MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);</dt>
+<dd>クラスがシンボルを持つか調べる。<br>見つからない場合は親クラスを辿る。</dd>
+</dl>
 
 * mrb_aspec MRB_ARGS_REQ(n);  
 必要な引数の数を示す。  
@@ -153,38 +154,42 @@ mrb_get_argsで受け取る引数を示すための型定義。
 * MRB_API mrb_value mrb_funcall_with_block(mrb_state* mrb, mrb_value self, mrb_sym mid, mrb_int argc, const mrb_value* argv, mrb_value blk);  
 メソッドを呼び出す。ブロック付き。  
 
-* MRB_API mrb_sym mrb_intern_cstr(mrb_state* mrb, const char* name);  
-* MRB_API mrb_sym mrb_intern(mrb_state* mrb, const char* name, size_t len);  
-* MRB_API mrb_sym mrb_intern_str(mrb_state* mrb, mrb_value str);  
-文字列からシンボルを登録して返す。  
-キーとして文字列のコピーをとる。  
+<dl>
+<dt>MRB_API mrb_sym mrb_intern_cstr(mrb_state* mrb, const char* name);</dt>
+<dt>MRB_API mrb_sym mrb_intern(mrb_state* mrb, const char* name, size_t len);</dt>
+<dt>MRB_API mrb_sym mrb_intern_str(mrb_state* mrb, mrb_value str);</dt>
+<dd>文字列からシンボルを登録して返す。<br>キーとして文字列のコピーをとる。</dd>
+<br>
 
-* MRB_API mrb_sym mrb_intern_lit(mrb_state* mrb, const char* lit);  
-* MRB_API mrb_sym mrb_intern_static(mrb_state* mrb,const char* name, size_t len);  
-文字列からシンボルを登録して返す。  
-キーとして文字列のコピーをとらない。  
+<dt>MRB_API mrb_sym mrb_intern_lit(mrb_state* mrb, const char* lit);</dt>
+<dt>MRB_API mrb_sym mrb_intern_static(mrb_state* mrb,const char* name, size_t len);</dt>
+<dd>文字列からシンボルを登録して返す。<br>キーとして文字列のコピーをとらない。</dd>
+<br>
 
-* MRB_API mrb_value mrb_check_intern_cstr(mrb_state* mrb, const char* name);  
-* MRB_API mrb_value mrb_check_intern(mrb_state* mrb, const char* name, size_t len);  
-* MRB_API mrb_value mrb_check_intern_str(mrb_state* mrb, mrb_value str);  
-文字列からシンボルを検索して返す。  
-存在しない場合はnilを返す。  
+<dt>MRB_API mrb_value mrb_check_intern_cstr(mrb_state* mrb, const char* name);</dt>
+<dt>MRB_API mrb_value mrb_check_intern(mrb_state* mrb, const char* name, size_t len);</dt>
+<dt>MRB_API mrb_value mrb_check_intern_str(mrb_state* mrb, mrb_value str);</dt>
+<dd>文字列からシンボルを検索して返す。<br>存在しない場合はnilを返す。</dd>
+<br>
 
-* MRB_API const char *mrb_sym2name(mrb_state* mrb, mrb_sym sym);  
-* MRB_API const char *mrb_sym2name_len(mrb_state* mrb, mrb_sym sym, mrb_int* lenp);  
-* MRB_API mrb_value mrb_sym2str(mrb_state* mrb, mrb_sym sym);  
-シンボルの値から文字列を返す。  
+<dt>MRB_API const char *mrb_sym2name(mrb_state* mrb, mrb_sym sym);</dt>
+<dt>MRB_API const char *mrb_sym2name_len(mrb_state* mrb, mrb_sym sym, mrb_int* lenp);</dt>
+<dt>MRB_API mrb_value mrb_sym2str(mrb_state* mrb, mrb_sym sym);</dt>
+<dd>シンボルの値から文字列を返す。</dd>
+<br>
 
-* MRB_API void *mrb_malloc(mrb_state* mrb, size_t len);  
-* MRB_API void *mrb_calloc(mrb_state* mrb, size_t nelem, size_t len);  
-* MRB_API void *mrb_realloc(mrb_state* mrb, void* p, size_t len);  
-* MRB_API void mrb_free(mrb_state* mrb, void* p);  
-malloc, calloc, realloc, free。  
+<dt>MRB_API void *mrb_malloc(mrb_state* mrb, size_t len);</dt>
+<dt>MRB_API void *mrb_calloc(mrb_state* mrb, size_t nelem, size_t len);</dt>
+<dt>MRB_API void *mrb_realloc(mrb_state* mrb, void* p, size_t len);</dt>
+<dt>MRB_API void mrb_free(mrb_state* mrb, void* p);</dt>
+<dd>malloc, calloc, realloc, free。</dd>
+<br>
 
-* MRB_API void *mrb_malloc_simple(mrb_state* mrb, size_t len);  
-* MRB_API void *mrb_realloc_simple(mrb_state* mrb, void* p, size_t len);  
-malloc, realloc。  
-メモリ確保に失敗しても例外を投げない。  
+<dt>MRB_API void *mrb_malloc_simple(mrb_state* mrb, size_t len);</dt>
+<dt>MRB_API void *mrb_realloc_simple(mrb_state* mrb, void* p, size_t len);</dt>
+<dd>malloc, realloc。<br>メモリ確保に失敗しても例外を投げない。</dd>
+<br>
+</dl>
 
 * MRB_API struct RBasic *mrb_obj_alloc(mrb_state* mrb, enum mrb_vtype ttype, struct RClass* cls);  
 オブジェクトを生成。  
