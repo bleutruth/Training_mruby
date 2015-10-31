@@ -16,13 +16,13 @@ mrb_stateを破棄する。
 アロケータの動作としては、reallocと同じように、  
 sが0の時はメモリを解放し、ptrがNULLの時は新たにメモリを確保する。  
 
-* MRB_API void* mrb_default_allocf(mrb_state* mrb, void* ptr, size_t s, void* ud);  
-デフォルトのアロケータ。  
-mrb_open_allocfでユーザー定義のものを指定すれば置き換えられる。  
+<dl>
+<dt>MRB_API void* mrb_default_allocf(mrb_state* mrb, void* ptr, size_t s, void* ud);</dt>
+<dd>デフォルトのアロケータ。<br>mrb_open_allocfでユーザー定義のものを指定すれば置き換えられる。</dd>
 
-* MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);  
-mrb_stateを生成して返す。  
-ユーザー定義アロケータとユーザーデータの指定版。  
+<dt>MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);</dt>
+<dd>mrb_stateを生成して返す。<br>ユーザー定義アロケータとユーザーデータの指定版。</dt>
+</dl>
 
 * MRB_API struct RClass *mrb_define_class(mrb_state *mrb, const char *name, struct RClass *super);  
 クラスを定義する。  
