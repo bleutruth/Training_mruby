@@ -398,14 +398,23 @@ mrb_valueから文字列の長さを取得。
 
 ## mruby/compile.h  
 
-* MRB_API mrb_value mrb_load_file(mrb_state*,FILE*);  
-* MRB_API mrb_value mrb_load_string(mrb_state *mrb, const char *s);  
-* MRB_API mrb_value mrb_load_nstring(mrb_state *mrb, const char *s, int len);  
-* MRB_API mrb_value mrb_load_file_cxt(mrb_state*,FILE*, mrbc_context *cxt);  
-* MRB_API mrb_value mrb_load_string_cxt(mrb_state *mrb, const char *s, mrbc_context *cxt);  
-* MRB_API mrb_value mrb_load_nstring_cxt(mrb_state *mrb, const char *s, int len, mrbc_context *cxt);  
+###### MRB_API mrb_value mrb_load_file(mrb_state*,FILE*);
+###### MRB_API mrb_value mrb_load_string(mrb_state *mrb, const char *s);
+###### MRB_API mrb_value mrb_load_nstring(mrb_state *mrb, const char *s, int len);
+###### MRB_API mrb_value mrb_load_file_cxt(mrb_state*,FILE*, mrbc_context *cxt);
+###### MRB_API mrb_value mrb_load_string_cxt(mrb_state *mrb, const char *s, mrbc_context *cxt);
+###### MRB_API mrb_value mrb_load_nstring_cxt(mrb_state *mrb, const char *s, int len, mrbc_context *cxt);
 引数で与えられたプログラムを実行する。  
-戻り値には実行したプログラムの戻り値が返る。  
+戻り値には実行したプログラムの戻り値が返る。
+
+###### MRB_API mrb_value mrb_load_file(mrb_state*,FILE*);
+###### MRB_API mrb_value mrb_load_string(mrb_state *mrb, const char *s);
+###### MRB_API mrb_value mrb_load_nstring(mrb_state *mrb, const char *s, int len);
+###### MRB_API mrb_value mrb_load_file_cxt(mrb_state*,FILE*, mrbc_context *cxt);
+###### MRB_API mrb_value mrb_load_string_cxt(mrb_state *mrb, const char *s, mrbc_context *cxt);
+###### MRB_API mrb_value mrb_load_nstring_cxt(mrb_state *mrb, const char *s, int len, mrbc_context *cxt);
+引数で与えられたプログラムを実行する。  
+戻り値には実行したプログラムの戻り値が返る。
 
 ## その他  
 
