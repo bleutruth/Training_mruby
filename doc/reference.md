@@ -4,21 +4,21 @@
 mrubyの取り扱い単位となる構造体。  
 通常、最初にmrb_openで生成して、最後にmrb_closeで破棄する。  
 独立して取り扱いたいために、複数生成するということもありそう。
-
+<br><br>
 
 ##### MRB_API mrb_state* mrb_open(void);
 mrb_stateを生成して返す。
-
+<br><br>
 
 ##### MRB_API void mrb_close(mrb_state* mrb);
 mrb_stateを破棄する。
-
+<br><br>
 
 ##### typedef void* (*mrb_allocf) (mrb_state *mrb, void* ptr, size_t s, void *ud);
 ユーザー定義アロケータの型定義。  
 アロケータの動作としては、reallocと同じように、  
 sが0の時はメモリを解放し、ptrがNULLの時は新たにメモリを確保する。
-
+<br><br>
 
 ##### MRB_API void* mrb_default_allocf(mrb_state* mrb, void* ptr, size_t s, void* ud);
 デフォルトのアロケータ。  
