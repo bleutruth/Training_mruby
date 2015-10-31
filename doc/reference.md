@@ -20,7 +20,7 @@ sが0の時はメモリを解放し、ptrがNULLの時は新たにメモリを�
 デフォルトのアロケータ。  
 mrb_open_allocfでユーザー定義のものを指定すれば置き換えられる。  
 
-* MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);
+* MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);  
 mrb_stateを生成して返す。  
 ユーザー定義アロケータとユーザーデータの指定版。  
 
