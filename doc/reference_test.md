@@ -240,12 +240,12 @@ mrb_obj_eqでチェックしてfalseが返ってきたら、eql?メソッドを�
 * mrb_int mrb_int(mrb, val)  
 整数値に変換。  
 
-* MRB_API mrb_value mrb_to_int(mrb_state *mrb, mrb_value val);  
-* MRB_API mrb_value mrb_Integer(mrb_state *mrb, mrb_value val);  
-* MRB_API mrb_value mrb_convert_to_integer(mrb_state *mrb, mrb_value val, int base);  
+`MRB_API mrb_value mrb_to_int(mrb_state *mrb, mrb_value val);`  
+`MRB_API mrb_value mrb_Integer(mrb_state *mrb, mrb_value val);`  
+`MRB_API mrb_value mrb_convert_to_integer(mrb_state *mrb, mrb_value val, int base);`  
 整数オブジェクトに変換。  
 
-* MRB_API mrb_value mrb_Float(mrb_state *mrb, mrb_value val);  
+`MRB_API mrb_value mrb_Float(mrb_state *mrb, mrb_value val);`  
 浮動小数点数に変換。  
 
 * MRB_API void mrb_garbage_collect(mrb_state* mrb);  
@@ -321,9 +321,9 @@ ASCIIコードかどうか判定する。
 * MRB_API mrb_value mrb_exc_new(mrb_state *mrb, struct RClass *c, const char *ptr, size_t len);  
 例外クラスを生成。  
 
-* MRB_API mrb_noreturn void mrb_exc_raise(mrb_state *mrb, mrb_value exc);  
-* MRB_API mrb_noreturn void mrb_raise(mrb_state *mrb, struct RClass *c, const char *msg);  
-* MRB_API mrb_noreturn void mrb_raisef(mrb_state *mrb, struct RClass *c, const char *fmt, ...);  
+##### MRB_API mrb_noreturn void mrb_exc_raise(mrb_state *mrb, mrb_value exc);
+##### MRB_API mrb_noreturn void mrb_raise(mrb_state *mrb, struct RClass *c, const char *msg);
+##### MRB_API mrb_noreturn void mrb_raisef(mrb_state *mrb, struct RClass *c, const char *fmt, ...);
 例外を投げる。  
 
 * MRB_API mrb_noreturn void mrb_name_error(mrb_state *mrb, mrb_sym id, const char *fmt, ...);  
