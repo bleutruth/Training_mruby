@@ -1,5 +1,7 @@
 ﻿## mruby.h
 
+### 初期化・終了処理
+
 ##### struct mrb_state;
 mrubyの取り扱い単位となる構造体。  
 通常、最初にmrb_openで生成して、最後にmrb_closeで破棄する。  
@@ -30,24 +32,10 @@ mrb_stateを生成して返す。
 ユーザー定義アロケータとユーザーデータの指定版。
 <br><br>
 
+### クラス・メソッド定義
+
 ##### MRB_API struct RClass *mrb_define_class(mrb_state *mrb, const char *name, struct RClass *super);
 クラスを定義する。
-<br><br>
-
-##### MRB_API struct RClass *mrb_define_module(mrb_state* mrb, const char* name);
-モジュールを定義する。
-<br><br>
-
-##### MRB_API mrb_value mrb_singleton_class(mrb_state* mrb, mrb_value v);
-特異クラスを返す。
-<br><br>
-
-##### MRB_API void mrb_include_module(mrb_state* mrb, struct RClass* c, struct RClass* m);
-cクラスにmモジュールをincludeする。
-<br><br>
-
-##### MRB_API void mrb_prepend_module(mrb_state* mrb, struct RClass* c, struct RClass* m);
-cクラスにmモジュールをprependする。
 <br><br>
 
 ##### MRB_API void mrb_define_method(mrb_state *mrb, struct RClass *cla, const char *name, mrb_func_t func, mrb_aspec aspec);
@@ -58,12 +46,24 @@ cクラスにmモジュールをprependする。
 クラスメソッドを定義する。
 <br><br>
 
-##### MRB_API void mrb_define_singleton_method(mrb_state* mrb, struct RObject* o, const char* name, mrb_func_t func, mrb_aspec aspec);
-特異メソッドを定義する。
+##### MRB_API struct RClass *mrb_define_module(mrb_state* mrb, const char* name);
+モジュールを定義する。
 <br><br>
 
 ##### MRB_API void mrb_define_module_function(mrb_state* mrb, struct RClass* cla, const char* name, mrb_func_t func, mrb_aspec aspec);
 モジュールメソッドを定義する。
+<br><br>
+
+##### MRB_API void mrb_include_module(mrb_state* mrb, struct RClass* c, struct RClass* m);
+cクラスにmモジュールをincludeする。
+<br><br>
+
+##### MRB_API void mrb_prepend_module(mrb_state* mrb, struct RClass* c, struct RClass* m);
+cクラスにmモジュールをprependする。
+<br><br>
+
+##### MRB_API void mrb_define_singleton_method(mrb_state* mrb, struct RObject* o, const char* name, mrb_func_t func, mrb_aspec aspec);
+特異メソッドを定義する。
 <br><br>
 
 ##### MRB_API void mrb_define_const(mrb_state* mrb, struct RClass* cla, const char *name, mrb_value v);
@@ -82,51 +82,17 @@ cクラスにmモジュールをprependする。
 クラスメソッドの定義を消す。
 <br><br>
 
-##### MRB_API mrb_value mrb_obj_new(mrb_state *mrb, struct RClass *c, mrb_int argc, const mrb_value *argv);
-オブジェクトを生成する。  
-argc, argvをinitializeの引数にする。
-<br><br>
-
-##### MRB_API mrb_value mrb_instance_new(mrb_state *mrb, mrb_value cv);
-オブジェクトを生成する。  
-initializeの引数はmrb_get_argsで取り出す。
-<br><br>
-
-##### MRB_API struct RClass * mrb_class_get(mrb_state *mrb, const char *name);
-名前からクラスを取得。
-<br><br>
-
-##### MRB_API struct RClass * mrb_class_get_under(mrb_state *mrb, struct RClass *outer, const char *name);
-派生クラスからクラスを取得。
-<br><br>
-
-##### MRB_API struct RClass * mrb_module_get(mrb_state *mrb, const char *name);
-名前からモジュールを取得。
-<br><br>
-
-##### MRB_API struct RClass * mrb_module_get_under(mrb_state *mrb, struct RClass *outer, const char *name);
-派生クラスからモジュールを取得。
-<br><br>
-
 ##### MRB_API mrb_value mrb_notimplement_m(mrb_state* mrb, mrb_value self);
 派生クラスで実装を強制するメソッド。  
 オーバーライドされずに呼ばれた場合、NotImplementedErrorを投げる。
 <br><br>
 
-##### MRB_API mrb_value mrb_obj_clone(mrb_state *mrb, mrb_value self);
-オブジェクトのコピーを生成する。  
-Object#clone
+##### typedef const char *mrb_args_format;
+mrb_get_argsで受け取る引数を示すための型定義。
 <br><br>
 
-##### MRB_API mrb_value mrb_obj_dup(mrb_state *mrb, mrb_value obj);
-オブジェクトのコピーを生成する。  
-Object#dup
-<br><br>
-
-##### MRB_API mrb_bool mrb_respond_to(mrb_state *mrb, mrb_value obj, mrb_sym mid);
-##### MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);
-クラスがシンボルを持つか調べる。  
-見つからない場合は親クラスを辿る。
+##### MRB_API mrb_int mrb_get_args(mrb_state *mrb, mrb_args_format format, ...);
+引数を受け取る。
 <br><br>
 
 ##### mrb_aspec MRB_ARGS_REQ(n);
@@ -150,7 +116,7 @@ post引数の数を示す。
 <br><br>
 
 ##### mrb_aspec MRB_ARGS_KEY(n1,n2);
-キーワード引数。
+キーワード引数を示す。
 <br><br>
 
 ##### mrb_aspec MRB_ARGS_BLOCK();
@@ -165,12 +131,49 @@ post引数の数を示す。
 引数なし。
 <br><br>
 
-##### typedef const char *mrb_args_format;
-mrb_get_argsで受け取る引数を示すための型定義。
+### オブジェクト生成
+
+##### MRB_API mrb_value mrb_obj_new(mrb_state *mrb, struct RClass *c, mrb_int argc, const mrb_value *argv);
+オブジェクトを生成する。  
+argc, argvをinitializeの引数にする。
 <br><br>
 
-##### MRB_API mrb_int mrb_get_args(mrb_state *mrb, mrb_args_format format, ...);
-引数を受け取る。
+##### MRB_API mrb_value mrb_instance_new(mrb_state *mrb, mrb_value cv);
+オブジェクトを生成する。  
+initializeの引数はmrb_get_argsで取り出す。
+<br><br>
+
+##### MRB_API mrb_value mrb_obj_clone(mrb_state *mrb, mrb_value self);
+オブジェクトのコピーを生成する。  
+Object#clone
+<br><br>
+
+##### MRB_API mrb_value mrb_obj_dup(mrb_state *mrb, mrb_value obj);
+オブジェクトのコピーを生成する。  
+Object#dup
+<br><br>
+
+### 取得関係
+
+##### MRB_API struct RClass * mrb_class_get(mrb_state *mrb, const char *name);
+##### MRB_API struct RClass * mrb_class_get_under(mrb_state *mrb, struct RClass *outer, const char *name);
+名前からクラスを取得。
+<br><br>
+
+##### MRB_API struct RClass * mrb_module_get(mrb_state *mrb, const char *name);
+##### MRB_API struct RClass * mrb_module_get_under(mrb_state *mrb, struct RClass *outer, const char *name);
+名前からモジュールを取得。
+<br><br>
+
+##### MRB_API mrb_bool mrb_respond_to(mrb_state *mrb, mrb_value obj, mrb_sym mid);
+##### MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);
+クラスがシンボルを持つか調べる。  
+見つからない場合は親クラスを辿る。
+<br><br>
+
+##### MRB_API mrb_value mrb_singleton_class(mrb_state* mrb, mrb_value v);
+特異クラスを取得。
+Kernel.#singleton_class
 <br><br>
 
 ##### mrb_sym mrb_get_mid(mrb_state *mrb);
