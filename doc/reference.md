@@ -165,16 +165,18 @@ Object#dup
 名前からモジュールを取得。
 <br><br>
 
+##### MRB_API mrb_value mrb_singleton_class(mrb_state* mrb, mrb_value v);
+特異クラスを取得。
+Kernel.#singleton_class
+<br><br>
+
 ##### MRB_API mrb_bool mrb_respond_to(mrb_state *mrb, mrb_value obj, mrb_sym mid);
 ##### MRB_API mrb_bool mrb_obj_respond_to(mrb_state *mrb, struct RClass* c, mrb_sym mid);
 クラスがシンボルを持つか調べる。  
 見つからない場合は親クラスを辿る。
 <br><br>
 
-##### MRB_API mrb_value mrb_singleton_class(mrb_state* mrb, mrb_value v);
-特異クラスを取得。
-Kernel.#singleton_class
-<br><br>
+### 未分類
 
 ##### mrb_sym mrb_get_mid(mrb_state *mrb);
 実行中のメソッドのシンボルを取得。
