@@ -11,6 +11,7 @@ FILE* ExecFile(mrb_state& mrb, char filename[])
 	if(!fp){
 		return 0;
 	}
+	mrb_load_file(&mrb, fp);
 	return fp;
 }
 
