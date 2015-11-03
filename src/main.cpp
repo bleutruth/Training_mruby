@@ -12,6 +12,9 @@ FILE* ExecFile(mrb_state& mrb, char filename[])
 		return 0;
 	}
 	mrb_load_file(&mrb, fp);
+	if(mrb.exc){
+		mrb_p(&mrb, mrb_obj_value(mrb.exc));
+	}
 	return fp;
 }
 
