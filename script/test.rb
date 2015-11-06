@@ -1,2 +1,4 @@
 
 puts "HelloWorld!"
+
+mytest

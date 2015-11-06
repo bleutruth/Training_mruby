@@ -5,6 +5,13 @@
 
 #include <crtdbg.h>
 
+namespace{
+	
+mrb_value mytest(mrb_state *mrb, mrb_value self)
+{
+	return mrb_nil_value();
+}
+
 FILE* ExecFile(mrb_state& mrb, char filename[])
 {
 	auto const fp = fopen(filename, "r");
@@ -26,6 +33,8 @@ void Exec(mrb_state& mrb, char filename[])
 	}
 }
 
+}	//	namespace
+
 int main()
 {
 	// Enable run-time memory check for debug builds.
@@ -35,6 +44,9 @@ int main()
 	if(!mrb){
 		return -1;
 	}
+
+	mrb_define_method(mrb, mrb->kernel_module, "mytest", mytest, MRB_ARGS_NONE());
+
 	Exec(*mrb, "test.rb");
 	mrb_close(mrb);
 	return 0;
