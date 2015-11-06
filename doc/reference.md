@@ -467,6 +467,40 @@ static assert
 
 ## mruby/value.h
 
+##### typedef uint32_t mrb_sym;
+シンボルの型定義。
+<br><br>
+
+##### typedef uint8_t mrb_bool;
+boolの型定義。
+<br><br>
+
+##### typedef int??_t mrb_int;
+整数型の型定義。  
+コンパイルオプション次第で、16bit, 32bit, 64bitを選択できる。
+<br><br>
+
+##### MRB_INT_BIT
+整数型のbit数。16bit, 32bit, 64bit。
+<br><br>
+
+##### MRB_INT_MIN
+整数型の最小値。
+<br><br>
+
+##### MRB_INT_MAX
+整数型の最大値。
+<br><br>
+
+##### typedef (float|double) mrb_float;
+浮動小数点数の型定義。  
+コンパイルオプション次第で、float, doubleを選択できる。
+<br><br>
+
+##### mrb_float str_to_mrb_float(const char* value);
+文字列をmrb_floatに変換。
+<br><br>
+
 ##### struct mrb_value;
 Cとの値の受け渡しに使う構造体。
 <br><br>
@@ -490,9 +524,21 @@ nilの場合、MRB_TT_FALSEが返ってくるので、
 mrb_valueのタイプや真偽を判定する。
 <br><br>
 
+##### void* mrb_ptr(mrb_value o);
 ##### mrb_int mrb_fixnum(mrb_value o);
 ##### mrb_float mrb_float(mrb_value o);など
-mrb_valueの値を取得する。
+mrb_valueから値やポインタを取得する。
+<br><br>
+
+##### MRB_INLINE mrb_value mrb_fixnum_value(mrb_int i);
+##### MRB_INLINE mrb_value mrb_float_value(struct mrb_state *mrb, mrb_float f);など
+mrb_valueに値やポインタをセットする。
+<br><br>
+
+##### MRB_INLINE mrb_value mrb_nil_value(void);
+##### MRB_INLINE mrb_value mrb_true_value(void);
+##### MRB_INLINE mrb_value mrb_false_value(void);など
+nil, true, falseオブジェクトなどを得る。
 <br><br>
 
 ## mruby/string.h
