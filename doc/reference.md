@@ -166,7 +166,7 @@ Object#dup
 <br><br>
 
 ##### MRB_API mrb_value mrb_singleton_class(mrb_state* mrb, mrb_value v);
-特異クラスを取得。
+特異クラスを取得。  
 Kernel.#singleton_class
 <br><br>
 
